@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% macro stateful_link(address) %}
+    {% set lower_address = address | lower %}
+    {% if lower_address == "tbc" %}
+        To Be Confirmed
+    {% elif lower_address == "na" %}
+        Not Available
+    {% else %}
+        <a href="{{address}}">{{address}}</a>
+    {% endif %}
+{% endmacro input %}
+
+{% block title %}
+CSLUG {{ page.title }}
+{% endblock title %}
+
+{% block content %}
+<h1>CSLUG {{page.title}}</h1>
+<p>Date: {{page.date}}</p>
+<p>Time: {{page.extra.time}}</p>
+<p>Location: {{page.extra.location}}</p>
+<p>In Person Signup: {{page.extra.on_site_signup}}</p>
+<p>Discussion Thread: {{self::stateful_link(address=page.extra.discussion)}}</p>
+{{ page.content | safe }}
+{% endblock content %}

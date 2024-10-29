@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+Central South LabVIEW User Group (CSLUG)
+{% endblock title %}
+
+
+{% block content %}
+
+{% set event_pages = get_section(path="events/_index.md") %}
+
+<h2>
+    Upcoming Events
+</h2>
+
+{% for page in event_pages.pages %}
+	{% if page.date %}
+		{% set page_time = page.date|date(format="%s")|int %}
+		{% set curr_time = now()|date(format="%s")|int %}
+		{% if page_time > curr_time %}
+		<p><a href="{{page.permalink}}">{{page.title}}</a></p>
+		{% endif %}
+	{% endif %}
+{% endfor %}
+
+<h2>
+    Previous Events
+</h2>
+{% set previous_pages = 0 %}
+{% for page in event_pages.pages %}
+	{% if page.date %}
+		{% set page_time = page.date|date(format="%s")|int %}
+		{% set curr_time = now()|date(format="%s")|int %}
+		{% if page_time < curr_time %}
+		<p><a href="{{page.permalink}}">{{page.title}}</a></p>
+        {% set previous_pages = previous_pages + 1 %}
+        {% if previous_pages > 2 %}{% break %}{% endif %}
+		{% endif %}
+	{% endif %}
+{% endfor %}
+
+
+{% endblock content %}
