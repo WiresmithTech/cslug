@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 
-{% macro stateful_link(address) %}
-    {% set lower_address = address | lower %}
-    {% if lower_address == "tbc" %}
-        To Be Confirmed
-    {% elif lower_address == "na" %}
-        Not Available
-    {% else %}
-        <a href="{{address}}">{{address}}</a>
-    {% endif %}
+{% macro stateful_link(address="tbc") %}
+{% set lower_address = address | lower %}
+{% if lower_address == "tbc" %}
+To Be Confirmed
+{% elif lower_address == "na" %}
+Not Available
+{% else %}
+<a href="{{address}}">{{address}}</a>
+{% endif %}
 {% endmacro input %}
 
 {% macro supporter(name, section="") %}
-    {% set supporter_path = "supporters/" ~ name ~ ".md" %}
-    {% set supporter = get_page(path=supporter_path) %}
-    {% if supporter %}
-        {% if section %}
-            {% set url = get_url(path="@/" ~ supporter_path,trailing_slash=false) ~ "#" ~ section %}
-        {% else %}
-            {% set url = supporter.permalink %}
-        {% endif %}
-        <a href="{{url}}">{{supporter.title}}</a>
-    {% endif %}
+{% set supporter_path = "supporters/" ~ name ~ ".md" %}
+{% set supporter = get_page(path=supporter_path) %}
+{% if supporter %}
+{% if section %}
+{% set url = get_url(path="@/" ~ supporter_path,trailing_slash=false) ~ "#" ~ section %}
+{% else %}
+{% set url = supporter.permalink %}
+{% endif %}
+<a href="{{url}}">{{supporter.title}}</a>
+{% endif %}
 {% endmacro supporter %}
 
 {% macro time_bound(item) %}
-    {% if item.start_time and item.end_time %}
-        {{item.start_time}} - {{item.end_time}}
-    {% elif item.start_time %}
-        {{item.start_time}}
-    {% elif end_time %}
-        TBC - {{item.end_time}}
+{% if item.start_time and item.end_time %}
+{{item.start_time}} - {{item.end_time}}
+{% elif item.start_time %}
+{{item.start_time}}
+{% elif end_time %}
+TBC - {{item.end_time}}
 {% endif %}
 {% endmacro time_bound %}
 
@@ -40,27 +40,26 @@ CSLUG {{ page.title }}
 
 {% block content %}
 <h1>CSLUG {{page.title}}</h1>
-<p>Date: {{page.date}}</p>
+<p>Date: {{page.date | date(format="%A %e %B %Y")}}</p>
 <p>Time: {{page.extra.time}}</p>
 <p>Location: {{self::supporter(name=page.extra.location, section="Getting There")}}</p>
 <p>In Person Signup: {{self::stateful_link(address=page.extra.on_site_signup)}}</p>
 <p>Discussion Thread: {{self::stateful_link(address=page.extra.discussion)}}</p>
-<p>Location Sponsor: {{self::supporter(name=page.extra.location)}}</p>
 {% if page.extra.lunch %}
 <p>Food Sponsor: {{self::supporter(name=page.extra.lunch)}}</p>
 {% endif %}
 
 <h2>Agenda</h2>
 {% if page.extra.agenda %}
-      <table class="agenda">
-  {% for item in page.extra.agenda %}
-          <tr>
-              <td>{{self::time_bound(item=item)}}</td>
-              <td>{{item.title}}</td>
-              <td>{%if item.speaker %}{{item.speaker}}{% endif %}</td>
-          </tr>
-   {% endfor %}
-  </table>
+<table class="agenda">
+    {% for item in page.extra.agenda %}
+    <tr>
+        <td>{{self::time_bound(item=item)}}</td>
+        <td>{{item.title}}</td>
+        <td>{%if item.speaker %}{{item.speaker}}{% endif %}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% else %}
 <p>No agenda has been posted yet.</p>
 {% endif %}
