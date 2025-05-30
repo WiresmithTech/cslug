@@ -1,5 +1,9 @@
 +++
 title = "NI UK"
+
+[extra]
+logo = "/emerson_ni_logo.png"
+site = "https://www.ni.com"
 +++
 
 NI need no introduction, creator of LabVIEW!

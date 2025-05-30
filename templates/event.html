@@ -20,7 +20,28 @@ Not Available
 {% else %}
 {% set url = supporter.permalink %}
 {% endif %}
-<a href="{{url}}">{{supporter.title}}</a>
+<a href="{{url}}">
+    {% if supporter.extra.logo %}
+    <img class="event-supporter-logo" src="{{ supporter.extra.logo }}" alt="{{ supporter.title }} logo"/>
+    {% else %}
+    {{supporter.title}}
+    {% endif %}
+</a>
+{% endif %}
+{% endmacro supporter %}
+
+{% macro location(name) %}
+{% set supporter_path = "supporters/" ~ name ~ ".md" %}
+{% set supporter = get_page(path=supporter_path) %}
+{% if supporter %}
+{% if section %}
+{% set url = get_url(path="@/" ~ supporter_path,trailing_slash=false) ~ "#" ~ "Getting There" %}
+{% else %}
+{% set url = supporter.permalink %}
+{% endif %}
+<a href="{{url}}">
+    {{supporter.title}}
+</a>
 {% endif %}
 {% endmacro supporter %}
 
@@ -40,14 +61,74 @@ CSLUG {{ page.title }}
 
 {% block content %}
 <h1>CSLUG {{page.title}}</h1>
-<p>Date: {{page.date | date(format="%A %e %B %Y")}}</p>
-<p>Time: {{page.extra.time}}</p>
-<p>Location: {{self::supporter(name=page.extra.location, section="Getting There")}}</p>
-<p>In Person Signup: {{self::stateful_link(address=page.extra.on_site_signup)}}</p>
-<p>Discussion Thread: {{self::stateful_link(address=page.extra.discussion)}}</p>
-{% if page.extra.lunch %}
-<p>Food Sponsor: {{self::supporter(name=page.extra.lunch)}}</p>
-{% endif %}
+<table>
+    <tr>
+        <td>
+            Date
+        </td>
+        <td>
+            {{page.date | date(format="%A %e %B %Y")}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Time
+        </td>
+        <td>
+            {{page.extra.time}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Location
+        </td>
+        <td>
+            {{self::location(name=page.extra.location)}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            In Person Signup
+        </td>
+        <td>
+            {{self::stateful_link(address=page.extra.on_site_signup)}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Discussion Thread
+        </td>
+        <td>
+            {{self::stateful_link(address=page.extra.discussion)}}
+        </td>
+    </tr>
+</table>
+
+<h2>Supported By:</h2>
+<div class="supporters-grid">
+    <div>
+        <h3>Venue Provider</h3>
+        <div class="supporter-content">
+            {{self::supporter(name=page.extra.location, section="Getting There")}}
+        </div>
+    </div>
+    {% if page.extra.lunch %}
+    <div>
+        <h3>Food Sponsor</h3>
+        <div class="supporter-content">
+        {{self::supporter(name=page.extra.lunch)}}
+        </div>
+    </div>
+    {% endif %}
+    {% if page.extra.organiser %}
+    <div>
+        <h3>Organiser</h3>
+        <div class="supporter-content">
+        {{self::supporter(name=page.extra.organiser)}}
+        </div>
+    </div>
+    {% endif %}
+</div>
 
 <h2>Agenda</h2>
 {% if page.extra.agenda %}
