@@ -17,7 +17,7 @@ This site is a work in progress but nothing like publishing before you are ready
     Upcoming Events
 </h2>
 
-{% for page in event_pages.pages %}
+{% for page in event_pages.pages | sort(attribute="date",reverse=true) %}
 	{% if page.date %}
 		{% set page_time = page.date|date(format="%s")|int %}
 		{% set curr_time = now()|date(format="%s")|int %}
@@ -31,7 +31,7 @@ This site is a work in progress but nothing like publishing before you are ready
     Previous Events
 </h2>
 {% set previous_pages = 0 %}
-{% for page in event_pages.pages %}
+{% for page in event_pages.pages | sort(attribute="date",reverse=true) %}
 	{% if page.date %}
 		{% set page_time = page.date|date(format="%s")|int %}
 		{% set curr_time = now()|date(format="%s")|int %}
