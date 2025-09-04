@@ -12,16 +12,15 @@ discussion = "https://forums.ni.com/t5/CSLUG-Central-South-LabVIEW-User/CSLUG-Se
 
 agenda = [
     { start_time = "10.30", title = "Welcome", speaker="James McNally"},
-    { start_time = "TBC", end_time="TBC", title = "Productivity Tips for LanbVIEW Programmers", speaker="Ellin Anegkana, NI"},
-    { start_time = "TBC", end_time="TBC", title = "Flexlogger Demo", speaker = "TBC, YottaVolt"},
+    { start_time = "10.35", end_time="11.20", title = "Productivity Tips for LanbVIEW Programmers", speaker="Ellin Anegkana, NI"},
+    { start_time = "11.20", end_time="11.50", title = "Flexlogger Demo", speaker = "TBC, YottaVolt"},
     { start_time = "11:50", end_time="12:30", title = "Lunch"},
     { start_time = "12:30", end_time="13:00", title = "CTI Toys", speaker = "Steve Watts"}
 ]
 +++
 
-Agenda items could move around but this is a good outline.
 
-NI will be talking about productivity tips for LabVIEW programmers. Always handy to add a few more shortcuts to your work and I know I'm behind a few versions on updates!
+Ellin from NI will be talking about productivity tips for LabVIEW programmers. Always handy to add a few more shortcuts to your work and I know I'm behind a few versions on updates!
 
 YottaVolt will be giving a demo of NI Flexlogger. I'm hoping that it can give us a faster route for basic data capture.
 
