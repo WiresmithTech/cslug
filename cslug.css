@@ -1,0 +1,110 @@
+@import url('fonts.css');
+
+:root {
+    --wide-content: 60rem;
+    --narrow-content: 40rem;
+}
+
+body {
+    max-width: var(--wide-content);
+    margin: 0 auto;
+    padding: 1rem;
+
+    font-family: 'Montserrat', sans-serif;
+    line-height: 150%;
+}
+
+
+header {
+    height: 4rem;
+    display: flex;
+    align-items: center;
+}
+
+
+header > img {
+    height: 100%;
+    padding: 0 1rem;
+}
+
+header > h1 {
+    vertical-align: middle;
+
+}
+
+nav {
+    margin-top: 1rem;
+}
+
+nav > a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    max-width: var(--wide-content);
+}
+
+/* Default children to narrow width */
+main > * {
+    max-width: var(--narrow-content);
+}
+
+.agenda {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.agenda > th,td {
+    border: 1px solid black;
+    padding: 0.5rem;
+}
+
+.logo-header {
+    margin: 3rem auto;
+    max-width: 20rem;
+    object-fit: contain;
+}
+
+.logo-container {
+    text-align: center;
+    width: 100%;
+}
+
+.supporters-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: var(--wide-content);
+}
+
+.supporters-grid > div {
+    margin: 1rem;
+    max-width: 20rem;
+    height: 15rem;
+}
+
+.supporters-grid > div > h3 {
+    text-align: center;
+    width: 100%;
+}
+
+.supporter-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.event-supporter-logo {
+    width: 15rem;
+    height: 10rem;
+    object-fit: contain;
+}
